@@ -24,6 +24,13 @@ gulp.task("concatJs", function() {
     .pipe(gulp.dest("dist"));
 });
 
+gulp.task("minifyJs", function() {
+    return gulp.src(["dist/semijs.js"])
+    .pipe(minify())
+    .pipe(rename("semijs.min.js"))
+    .pipe(gulp.dest("dist"));
+});
+
 gulp.task("default", ["concatJs"], function () {
     gulp.start("minifyJs");
 });

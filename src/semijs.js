@@ -2,7 +2,7 @@
 
 
 const SemiJS = function(sel) {
-	if (sel instanceof Array) {
+	if (sel instanceof Array || sel instanceof HTMLCollection || sel instanceof NodeList) {
 		for (let i = 0; i < sel.length; i++) {
 			this.push(sel[i]);
 		}
@@ -28,6 +28,10 @@ SemiJS.prototype.push = Array.prototype.push;
 SemiJS.prototype.pop = Array.prototype.pop;
 SemiJS.prototype.shift = Array.prototype.shift;
 SemiJS.prototype.unshift = Array.prototype.unshift;
+SemiJS.prototype.splice = Array.prototype.splice;
+SemiJS.prototype.indexOf = Array.prototype.indexOf;
+
+SemiJS.prototype.eventStack = [];
 
 
 /* this is will create a new SemiJS instance, 

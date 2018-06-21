@@ -7,14 +7,32 @@
 		.red {
 			color: red;
 		}
+		p {
+			padding: 10px;
+		}
 	</style>
 </head>
 <body>
 <p>item1</p>
 <p>item2</p>
-<p>item3</p>
+<p class="red">
+	hello
+</p>
 
 <a href="#">Link1</a>
+
+<ul>
+	<li>list1</li>
+	<li>list2</li>
+	<li>list3</li>
+</ul>
+
+<div id="appendHere">
+	<h4>Append Here!</h4>
+</div>
+
+
+<input type="text" name="hello" value="jeeva">
 
 
 <script type="text/javascript" src="dist/semijs.js"></script>
@@ -26,7 +44,13 @@
 	let p = $("p").test();
 	
 
-	console.log(p.attr("style", "color: green;"));
+	p.bind("click mouseover", function() {
+		console.log(this);
+	});
+	p.unbind("click");
+
+
+	p.get(0).prepend("<h1>Hello</h1>");
 
 </script>
 </body>

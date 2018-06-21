@@ -10,6 +10,10 @@
 
 **[.attr()](#attr)** Get the value of an attribute for the first element in the set of matched elements.
 
+**[.before()](#before)** Insert content, specified by the parameter, before each element in the set of matched elements.
+
+**[.bind()](#bind)** Attach a handler to an event for the elements.
+
 
 
 
@@ -127,4 +131,21 @@ Get the value of an attribute for the first element in the set of matched elemen
 ```js
 var title = $( "em" ).attr( "title" );
 $( "div" ).text( title );
+```
+
+
+<h1 id="before">.before()</h1>
+
+Insert content, specified by the parameter, before each element in the set of matched elements.
+
+
+
+<h1 id="bind">.bind()</h1>
+
+* **.bind( eventType [, eventData ], handler )**
+
+```js
+$( "#foo" ).bind( "mouseenter mouseleave", function() {
+  $( this ).toggleClass( "entered" );
+});
 ```
