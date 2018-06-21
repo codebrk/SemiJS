@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SemiJS</title>
+
+	<style type="text/css">
+		.red {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+<p>item1</p>
+<p>item2</p>
+<p>item3</p>
+
+<a href="#">Link1</a>
+
+
+<script type="text/javascript" src="dist/semijs.js"></script>
+<script type="text/javascript">
+	$.plugin("test", function() {
+		this[0].style.color = "green";
+		return this;
+	});
+	let p = $("p").test();
+	p.add("a");
+
+	p.addClass(function(i) {
+		return "red-" + i;
+	});
+
+	let el = document.createElement("h1");
+	el.innerHTML = "Heading";
+	p.get(0).append(function(i) {
+		return "<h1>NEw HeAding" + i + "</h1>";
+	});
+
+</script>
+</body>
+</html>
