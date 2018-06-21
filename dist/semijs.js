@@ -59,6 +59,8 @@ SemiJS.prototype.add = function (el) {
 	for (var i = 0; i < els.length; i++) {
 		this.push(els[i]);
 	}
+
+	return this;
 };
 
 SemiJS.prototype.addClass = function (cls) {
@@ -69,6 +71,8 @@ SemiJS.prototype.addClass = function (cls) {
 			el.classList.add(cls);
 		}
 	});
+
+	return this;
 };
 
 SemiJS.prototype.after = function (content) {
@@ -80,6 +84,8 @@ SemiJS.prototype.after = function (content) {
 	this.each(function (el) {
 		el.parentNode.insertBefore(content.cloneNode(true), el.nextSibling);
 	});
+
+	return this;
 };
 
 SemiJS.prototype.append = function (content) {
@@ -103,5 +109,19 @@ SemiJS.prototype.append = function (content) {
 			el.appendChild(content);
 		}
 	});
+
+	return this;
+};
+
+SemiJS.prototype.attr = function (key, value) {
+	if (value === undefined) {
+		return this[0].getAttribute(key);
+	}
+
+	this.each(function (el) {
+		el.setAttribute(key, value);
+	});
+
+	return this;
 };
 //# sourceMappingURL=semijs.js.map

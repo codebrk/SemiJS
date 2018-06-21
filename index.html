@@ -24,17 +24,9 @@
 		return this;
 	});
 	let p = $("p").test();
-	p.add("a");
+	
 
-	p.addClass(function(i) {
-		return "red-" + i;
-	});
-
-	let el = document.createElement("h1");
-	el.innerHTML = "Heading";
-	p.get(0).append(function(i) {
-		return "<h1>NEw HeAding" + i + "</h1>";
-	});
+	console.log(p.attr("style", "color: green;"));
 
 </script>
 </body>
