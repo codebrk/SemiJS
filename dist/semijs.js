@@ -43,8 +43,8 @@ var $ = function $(sel) {
 SemiJS.prototype.plugin = function (name, callback) {
 	SemiJS.prototype[name] = callback;
 };
-$.plugin = function (name, callback) {
-	SemiJS.prototype.plugin(name, callback);
+$.plugin = function (callback) {
+	SemiJS.prototype.plugin(callback.name, callback);
 };
 "use strict";
 
@@ -205,7 +205,7 @@ SemiJS.prototype.clone = function (withEvents, withChildren) {
 SemiJS.prototype.css = function (styles) {
 	if (typeof styles === "function") {
 		this.each(function (el, i) {
-			var s = styles(i);
+			var s = styles(el, i);
 			var keys = Object.keys(s);
 			$(keys).each(function (key, i) {
 				el.style[key] = s[key];
@@ -281,6 +281,10 @@ SemiJS.prototype.innerWidth = function () {
 
 SemiJS.prototype.last = function () {
 	return $(this[this.length - 1]);
+};
+
+SemiJS.prototype.offsetLeft = function () {
+	return this[0].offsetLeft;
 };
 
 SemiJS.prototype.parent = function () {
@@ -418,4 +422,20 @@ SemiJS.prototype.val = function (content) {
 SemiJS.prototype.width = function () {
 	return this[0].offsetWidth;
 };
+
+SemiJS.prototype.wrap = function () {
+	var wrap = $(document.createElement("div"));
+	this.each(function (el, i) {
+		wrap.append(el);
+	});
+
+	return wrap;
+};
+"use strict";
+
+window.requestAnimFrame = function () {
+  return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
+    window.setTimeout(callback, 1000 / 60);
+  };
+}();
 //# sourceMappingURL=semijs.js.map

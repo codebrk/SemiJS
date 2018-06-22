@@ -35,23 +35,10 @@
 <input type="text" name="hello" value="jeeva">
 
 
-<script type="text/javascript" src="dist/semijs.js"></script>
+<script type="text/javascript" src="dist/semijs.min.js"></script>
+<script type="text/javascript" src="example-semijs.js"></script>
 <script type="text/javascript">
-	$.plugin("test", function() {
-		this[0].style.color = "green";
-		return this;
-	});
-	let p = $("p").test();
-	
-
-	p.bind("click mouseover", function() {
-		console.log(this);
-	});
-	p.unbind("click");
-
-
-	p.get(0).prepend("<h1>Hello</h1>");
-
+	$("p").reverse();
 </script>
 </body>
 </html>

@@ -159,7 +159,7 @@ SemiJS.prototype.clone = function(withEvents, withChildren) {
 SemiJS.prototype.css = function(styles) {
 	if (typeof styles === "function") {
 		this.each(function(el, i) {
-			let s = styles(i);
+			let s = styles(el, i);
 			let keys = Object.keys(s);
 			$(keys).each(function(key, i) {
 				el.style[key] = s[key];
@@ -244,6 +244,11 @@ SemiJS.prototype.innerWidth = function() {
 
 SemiJS.prototype.last = function() {
 	return $(this[this.length - 1]);
+};
+
+
+SemiJS.prototype.offsetLeft = function() {
+	return this[0].offsetLeft;
 };
 
 
@@ -390,4 +395,14 @@ SemiJS.prototype.val = function(content) {
 
 SemiJS.prototype.width = function() {
 	return this[0].offsetWidth;
+};
+
+
+SemiJS.prototype.wrap = function() {
+	let wrap = $(document.createElement("div"));
+	this.each(function(el, i) {
+		wrap.append(el);
+	});
+
+	return wrap;
 };

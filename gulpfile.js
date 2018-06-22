@@ -14,6 +14,7 @@ gulp.task("concatJs", function() {
         "src/semijs.js",
         "src/plugin.js",
         "src/methods.js",
+        "src/animation.js",
     ])
     .pipe(babel({
 		presets: ['env']
