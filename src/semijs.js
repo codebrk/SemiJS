@@ -7,13 +7,16 @@ const SemiJS = function(sel) {
 			this.push(sel[i]);
 		}
 	}  else if (typeof sel == "string") { 
-		if (sel.indexOf("<") > -1) {
+		if (sel.indexOf("<") > -1 && sel.indexOf("/>") > -1) {
 			let parser = new DOMParser();
 			let doc = parser.parseFromString(sel, "text/html");
 			let els = doc.getElementsByTagName('body')[0].children;
 			for (let i = 0; i < els.length; i++) {
 				this.push(els[i]);
 			}
+		} else if (sel.indexOf("<") > -1) {
+			sel = sel.replace(/</, "").replace(/>/, "")
+			this.push(document.createElement(sel));
 		} else {
 			let els = document.querySelectorAll(sel);
 			for (let i = 0; i < els.length; i++) {

@@ -66,9 +66,15 @@ SemiJS.prototype.append = function(content) {
 		} else {
 			content = document.createTextNode(content);
 		}
-	} else if (content instanceof SemiJS) {
-		content = content[0];
-	} 
+	} else if (content instanceof SemiJS || content instanceof HTMLCollection || content instanceof NodeList) {
+		this.each(function(el) {
+			for (let i = 0; i < content.length; i++) {
+				el.appendChild(content[i]);
+			}
+		});
+
+		return this;
+	}
 
 	this.each(function(el, i) {
 		if (typeof content === "function") {
@@ -212,7 +218,11 @@ SemiJS.prototype.height = function() {
 };
 
 
-SemiJS.prototype.hide = function() {};
+SemiJS.prototype.hide = function() {
+	this.each(function(el) {
+		el.style.opacity = 0;
+	});
+};
 
 
 SemiJS.prototype.html = function(content) {
@@ -329,6 +339,13 @@ SemiJS.prototype.removeClass = function(cls) {
 	});
 
 	return this;
+};
+
+
+SemiJS.prototype.show = function() {
+	this.each(function(el) {
+		el.style.opacity = 1;
+	});
 };
 
 

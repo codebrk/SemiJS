@@ -7,13 +7,16 @@ var SemiJS = function SemiJS(sel) {
 			this.push(sel[i]);
 		}
 	} else if (typeof sel == "string") {
-		if (sel.indexOf("<") > -1) {
+		if (sel.indexOf("<") > -1 && sel.indexOf("/>") > -1) {
 			var parser = new DOMParser();
 			var doc = parser.parseFromString(sel, "text/html");
 			var els = doc.getElementsByTagName('body')[0].children;
 			for (var _i = 0; _i < els.length; _i++) {
 				this.push(els[_i]);
 			}
+		} else if (sel.indexOf("<") > -1) {
+			sel = sel.replace(/</, "").replace(/>/, "");
+			this.push(document.createElement(sel));
 		} else {
 			var _els = document.querySelectorAll(sel);
 			for (var _i2 = 0; _i2 < _els.length; _i2++) {
@@ -43,8 +46,12 @@ var $ = function $(sel) {
 SemiJS.prototype.plugin = function (name, callback) {
 	SemiJS.prototype[name] = callback;
 };
-$.plugin = function (callback) {
-	SemiJS.prototype.plugin(callback.name, callback);
+$.plugin = function (callback, name) {
+	if (name === undefined) {
+		SemiJS.prototype.plugin(callback.name, callback);
+	} else {
+		SemiJS.prototype.plugin(name, callback);
+	}
 };
 "use strict";
 
@@ -112,8 +119,14 @@ SemiJS.prototype.append = function (content) {
 		} else {
 			content = document.createTextNode(content);
 		}
-	} else if (content instanceof SemiJS) {
-		content = content[0];
+	} else if (content instanceof SemiJS || content instanceof HTMLCollection || content instanceof NodeList) {
+		this.each(function (el) {
+			for (var i = 0; i < content.length; i++) {
+				el.appendChild(content[i]);
+			}
+		});
+
+		return this;
 	}
 
 	this.each(function (el, i) {
@@ -253,7 +266,11 @@ SemiJS.prototype.height = function () {
 	return this[0].offsetHeight;
 };
 
-SemiJS.prototype.hide = function () {};
+SemiJS.prototype.hide = function () {
+	this.each(function (el) {
+		el.style.opacity = 0;
+	});
+};
 
 SemiJS.prototype.html = function (content) {
 	if (content === undefined) {
@@ -360,6 +377,12 @@ SemiJS.prototype.removeClass = function (cls) {
 	});
 
 	return this;
+};
+
+SemiJS.prototype.show = function () {
+	this.each(function (el) {
+		el.style.opacity = 1;
+	});
 };
 
 SemiJS.prototype.siblings = function () {
